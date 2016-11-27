@@ -1,0 +1,48 @@
+body {
+	display: flex;
+	flex-direction: column;
+}
+#on-board{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background-color: #313837;
+	background-color: rgba(0,0,0,0);
+}
+
+#signup{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #313837;
+	background-color: rgba(0,0,0,0.9);
+	width: 60%;
+	height: 100%;
+	color: white;
+	text-align: center;
+}
+
+#signup a{
+	color: white;
+	text-align: center;
+	padding: 0em 2em;
+	text-decoration: none;
+}
+
+#signup hr{
+	width: 70%;
+}
+
+#form{
+	padding: 100px 27px;
+	margin: 0;
+	background-color: #E6E7E8;
+	background-color: rgba(230,231,232,0.9);
+}
+
+.button{
+	padding: 1em;
+	background-color: #D14039;
+	border-radius: 0.5em;
+	letter-spacing: 2px;
+}

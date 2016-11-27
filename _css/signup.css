@@ -1,0 +1,14 @@
+#on-board{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	color: white;
+}
+
+#form {
+	width: 65%;
+}
+
+nav a {
+	color: white;
+}
