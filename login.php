@@ -4,20 +4,22 @@
 	$twitter = $password = "";
 	$valid = TRUE;
 	$servername = "localhost";
-	$serverUsername = "root";
-	$serverPassword = "root";
-	$dbname = "data";
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 		// Create connection
-		$conn = mysqli_connect($servername, $serverUsername, $serverPassword, $dbname);
-		$twitter = $_POST['twitter'];
+		// specifies db type, host, db name, char set, username and password
+		$db = new PDO('mysql:host=localhost;dbname=data;charset=utf8','root','root');
+		//set error mode, which allows errors to be thrown, rather than silently ignored
+		$db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		$password = $_POST['password'];
-
-		$sql = "SELECT twitter, name, password FROM users WHERE twitter = '$twitter'";
-		$result = $conn->query($sql);
-		$row = $result->fetch_assoc();
+		$twitter = $_POST['twitter'];
+		
+		$sql = "SELECT * FROM users WHERE twitter = :twitter";
+		$query = $db -> prepare( $sql );
+		$query -> execute( array(':twitter' => $_POST['twitter']));
+		$row = $query->fetch(PDO::FETCH_ASSOC);
 
 		if (empty($_POST['twitter'])){
 			$twitterErr = "Twitter handle is required";
@@ -35,11 +37,17 @@
 			$valid = FALSE;
 		};
 	
-		$conn -> close();
+		//$db -> close();
+		$db = NULL;
 
 		if ($valid){
 			$_SESSION['name'] = $row['name'];
 			$_SESSION['twitter'] = $row['twitter'];
+			$_SESSION['goal'] = $row['goal'];
+			$_SESSION['goalNum'] = $row['goalNum'];
+			$_SESSION['goalTime'] = $row['goalTime'];
+			$_SESSION['charity'] = $row['charity'];
+
 			header('Location: index.html');
 			exit(0);
 		};
@@ -63,7 +71,7 @@
 			<div id="signup">
 				<h3>Not a member yet?</h3>
 				<hr>
-				<a href="signup.php#section-two"><h3 class="button">SIGN UP</h3></a>
+				<a href="signup.php#section-two"><h3 class="proceed-button button">SIGN UP</h3></a>
 			</div>
 
 			<div id="form">

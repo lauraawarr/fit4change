@@ -1,23 +1,52 @@
 <?php session_start(); ?>
 <?php
-	
-	$stepsdaily = $stepsweekly = "";
-	$dailycount = $weeklycount = "";
-	$stepsdaily = $stepsweekly = "";
-	$dailycount = $weeklycount = "";
+
+	$goalTime = $goalErr =  "";
+	$valid = false;
+
+	if (isset($_SESSION['goal'])) {
+		$goal = $_SESSION['goal'];
+	} else {
+		$goal = "steps";
+	};
+
+	if (isset($_SESSION['numName'])) {
+		$numName = $_SESSION['numName'];
+		$goalNum = $_SESSION['goalNum'];
+	} else {
+		$numName = "";
+		$goalNum = "";
+	};
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-		header('Location: charity.php#section-two');
-		// Create connection
-		//$conn = mysqli_connect($servername, $serverUsername, $serverPassword, $dbname);
-		// $stepsdaily = $_POST['stepsdaily'];
-		// $stepsweekly = $_POST['stepsweekly'];
-		// $dailycount = $_POST['dailycount'];	
-		// $weeklycount = $_POST['weeklycount'];
-		
+		//determines if goal(steps, minutes, or distance) and goalTime (week or day) are set
+		if (isset($_POST['goal']) && isset($_POST['goalTime'])) {
 
-		
+			//sets the SESSION variables to be the POST variables
+			$goalTime = $_SESSION['goalTime'] = $_POST['goalTime'];
+			$goal = $_SESSION['goal'] = $_POST['goal'];
+
+			//concats $goal and $goalTime to form $goalNum name (ie. steps-week, distance-day)
+			$numName = $_SESSION['numName'] = $goal."-".$goalTime;
+
+						
+			if (isset($_POST[$numName])){
+
+				//sets the goalNum SESSION variable to the POST variable 
+				$goalNum = $_SESSION['goalNum'] = $_POST[$numName];
+
+				// Returns an error if goalNum is not a positive integer
+				if (intval($goalNum) && ($goalNum > 0)){
+					$_SESSION['goalNum'] = intval($goalNum);
+					$valid = true;
+				} else {
+					$goalErr = "Goal must be non-negative numeric value";
+				};
+			};
+		};
+
+		if ($valid) header('Location: charity.php#section-two');
 	
 	};
 
@@ -32,57 +61,70 @@
 </head>
 <body>
 
-	<?php include('landing.html') ?>
+	<!-- 
+	<?php //include('landing.html') ?>
+ -->
 
 	<div id="section-two">
 		<img class='ease up' src="_images/easeUp.svg">
 		<div id="on-board">
 			<nav>
-				<a href="login.php">CANCEL</a>
+				<a href="signup.php#section-two">BACK</a>
 			</nav>
 
 			<content>
 				<h2>What is your goal today?</h2>
+				<p>Set your goal on a weekly basis or what you'd like to average per day.</p>
+				<span class='error'><?php echo $goalErr; ?></span>
 				<div class="column">
 				<form action = 'goal.php#section-two' method='POST'>
-					<div id="steps" class="column selector">
-						<input type='radio' name='toggle' id='steptoggle'></input><label for='steptoggle' class="row"><img src="_images/goals/steps.svg"/><h3>Step Count</h3></label>
+					<div id="steps" class="column selector goal-type">
+						<input type='radio' name='goal' id='steptoggle' value='steps' <?php echo ($goal == "steps") ? "checked" : ""?> ></input><label for='steptoggle' class="row"><img src="_images/goals/steps.svg"/><h3>Step Count</h3></label>
 						
 						<foo>
-							<input type='radio' id='stepsdaily' name='goalTime'/>
-							<input type='text' id='dailycount' name='goalNum' size='6'/>
-							<label>steps per day<label/>
-							<br/><br/>
-							<input type='radio' id='stepsweekly' name='goalTime'/>
-							<input type='text' id='weeklycount' name='goalNum' size='6'/>
-							<label>steps per week<label/>
+							<div class='goal-option row'>
+								<input type='radio' id='stepsdaily' value='day' name='goalTime' <?php echo ($numName == "steps-day") ? "checked" : ""?> />
+								<input type='text' for='stepsdaily' id='dailycount' name='steps-day' value='<?php echo ($numName == "steps-day") ? $goalNum : ""?>' size='8' placeholder="ex. 10000"/>
+								<label for='stepsdaily'>steps per day<label/>
+							</div>
+							<div class='goal-option row'>
+								<input type='radio' id='stepsweekly' value='week' name='goalTime' <?php echo ($numName == "steps-week") ? "checked" : ""?> />
+								<input type='text' id='weeklycount' name='steps-week' value='<?php echo ($numName == "steps-week") ? $goalNum : ""?>' size='8' placeholder="ex. 70000"/>
+								<label>steps per week<label/>
+							</div>
 						</foo>
 					</div>
 
-					<div id="minutes" class="column selector">
-						<input type='radio' name='toggle' id='mintoggle'></input><label for='mintoggle' class="row"><img src="_images/goals/minutes.svg"/><h3>Active Minutes</h3></label>
+					<div id="minutes" class="column selector goal-type">
+						<input type='radio' name='goal' id='mintoggle' value='minutes' <?php echo ($goal == "minutes") ? "checked" : ""?> ></input><label for='mintoggle' class="row"><img src="_images/goals/minutes.svg"/><h3>Active Minutes</h3></label>
 							<foo>
-								<input type='radio' id='mindaily' name='goalTime'/>
-								<input type='text' id='dailymins' name='goalNum' size='6'/>
-								<label>minutes per day<label/>
-								<br/><br/>
-								<input type='radio' id='minweekly' name='goalTime' />
-								<input type='text' id='weeklymins' name='goalNum' size='6'/>
-								<label>minutes per week<label/>
+								<div class='goal-option row'>
+									<input type='radio' id='mindaily' value='day' name='goalTime' <?php echo ($numName == "minutes-day") ? "checked" : ""?> />
+									<input type='text' id='dailymins' name='minutes-day' value='<?php echo ($numName == "minutes-day") ? $goalNum : ""?>' size='8' placeholder="ex. 30"/>
+									<label>minutes per day<label/>
+								</div>
+								<div class='goal-option row'>
+									<input type='radio' id='minweekly' value='week' name='goalTime' <?php echo ($numName == "minutes-week") ? "checked" : ""?> />
+									<input type='text' id='weeklymins' name='minutes-week' value='<?php echo ($numName == "minutes-week") ? $goalNum : ""?>' size='8' placeholder="ex. 210"/>
+									<label>minutes per week<label/>
+								</div>
 							</foo>
 					</div>
 
-					<div id="distance" class="column selector">
-						<input type='radio' name='toggle' id='distoggle'></input><label for='distoggle' class="row"><img src="_images/goals/distance.svg"/><h3>Distance</h3></label>
+					<div id="distance" class="column selector goal-type">
+						<input type='radio' name='goal' id='distoggle' value='distance' <?php echo ($goal == "distance") ? "checked" : ""?> ></input><label for='distoggle' class="row"><img src="_images/goals/distance.svg"/><h3>Distance</h3></label>
 						 
 							<foo>
-								<input type='radio' id='disdaily' name='goalTime'/>
-								<input type='text' id='dailydis' name='goalNum' size='6'/>
-								<label>kilometers per day<label/>
-								<br/><br/>
-								<input type='radio' id='disweekly' name='goalTime' />
-								<input type='text' id='weeklydis' name='goalNum' size='6'/>
-								<label>kilometers per week<label/>
+								<div class='goal-option row'>
+									<input type='radio' id='disdaily' value='day' name='goalTime' <?php echo ($numName == "distance-day") ? "checked" : ""?> />
+									<input type='text' id='dailydis' name='distance-day' value='<?php echo ($numName == "distance-day") ? $goalNum : ""?>' size='8' placeholder="ex. 5"/>
+									<label>kilometers per day<label/>
+								</div>
+								<div class='goal-option row'>
+									<input type='radio' id='disweekly' value='week' name='goalTime' <?php echo ($numName == "distance-week") ? "checked" : ""?> />
+									<input type='text' id='weeklydis' name='distance-week' value='<?php echo ($numName == "distance-week") ? $goalNum : ""?>' size='8' placeholder="ex. 25"/>
+									<label>kilometers per week<label/>
+								</div>
 							</foo>
 					</div>
 					<br/><br/>

@@ -4,10 +4,18 @@
 $nameErr = $twitterErr = $passErr = "";
 $name = $twitter = $password1 = $password2 = "";
 $valid = TRUE;
-$servername = "localhost";
-$serverUsername = "root";
-$serverPassword = "root";
-$dbname = "data";
+
+if (isset($_SESSION['name'])) {
+	$name = $_SESSION['name'];
+} else {
+	$name = "";
+};
+if (isset($_SESSION['twitter'])) {
+	$twitter = $_SESSION['twitter'];
+} else {
+	$twitter = "";
+};
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -24,24 +32,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	}
 
 	// Create connection
-	$conn = mysqli_connect($servername, $serverUsername, $serverPassword, $dbname);
+	// specifies db type, host, db name, char set, username and password
+	$db = new PDO('mysql:host=localhost;dbname=data;charset=utf8','root','root');
+	//set error mode, which allows errors to be thrown, rather than silently ignored
+	$db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+	$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
 	$twitter = $_POST['twitter'];
-	$sql = "SELECT twitter FROM users WHERE twitter = '$twitter'";
-	$result = $conn->query($sql);
+	$sql = "SELECT twitter FROM users WHERE twitter = :twitter";
+	$query = $db -> prepare( $sql );
+	$query -> execute( array(':twitter' => $_POST['twitter']));
+	$result = $query->fetch(PDO::FETCH_ASSOC);
+
 	if (empty($_POST["twitter"])){
 		$twitterErr = "Twitter handle is required";
 		$valid = FALSE;
-	} else if ($result->num_rows>0){
+	} else if (!empty($result)){
 		$twitterErr = "Twitter handle is already in use";
 		$valid = FALSE;
 	} else {
 		$twitter = test_input($_POST["twitter"]);
 		// check if Twitter handle syntax is valid 
-    	if (!preg_match("/^[a-zA-Z]*$/",$twitter)) {
+    	if (!preg_match("/^[a-zA-Z]*$/", $twitter)) {
 	      $twitterErr = "Invalid Twitter handle"; 
 	    }
 	}
-	$conn -> close();
 
 	if (empty($_POST["password1"])){
 		$passErr = "Password is required";
@@ -57,31 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	if ($valid){
 
-		$name = $_POST['name'];
-		$name = capFirst($name);
-		$_SESSION['name'] = $name;
+		$_SESSION['name'] = capFirst($_POST['name']);
 		$_SESSION['twitter'] = $_POST['twitter'];
-		$twitter = $_POST['twitter'];
-		$password1 = $_POST['password1'];
-		// Create connection
-		$conn = mysqli_connect($servername, $serverUsername, $serverPassword, $dbname);
-		// Check connection
-		if (!$conn) {
-		    die("Connection failed: " . mysqli_connect_error());
-		}
+		$_SESSION['password'] = $_POST['password1'];
 
-		$sql = "INSERT INTO users (twitter, name, password)
-		VALUES ('$twitter', '$name', '$password1')";
-
-		if ($conn->query($sql) === TRUE) {
-		    //echo "New record created successfully";
-		} else {
-		    echo "Error: " . $sql . "<br>" . $conn->error;
-		}
-
-		$conn->close();
+		$db = null;
 		header('Location: goal.php#section-two');
-		exit(0);
 	} 
 }
 
@@ -108,14 +104,14 @@ function capFirst($word){
 	<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
 </head>
 <body>
-
-	<?php include('landing.html') ?>
-
+<!-- 
+	<?php //include('landing.html') ?>
+ -->
 	<div id="section-two">
 		<img class='ease up' src="_images/easeUp.svg">
 		<div id="on-board">
 			<nav>
-				<a href="login.php#section-two">BACK</a>
+				<a href="logout.php">CANCEL</a>
 			</nav>
 
 			<div id="form">
@@ -131,7 +127,7 @@ function capFirst($word){
 				<br/><br/>
 				<input type='password' id='password2' name='password2' value="<?php echo $password2 ?>" placeholder='Confirm Password' size='40'/>
 				<br /><br />
-				<input type='submit' value='GET STARTED'/>
+				<input class='proceed-button' type='submit' value='GET STARTED'/>
 
 			</form>
 			</div>

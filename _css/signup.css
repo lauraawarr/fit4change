@@ -6,7 +6,17 @@
 }
 
 #form {
-	width: 65%;
+	width: 75%;
+	justify-content: center;
+}
+
+input[type=submit]{
+	float: right;
+	margin-right: 4.25em;
+}
+
+input[type=password], input[type=text] {
+	width: 75%;
 }
 
 nav a {

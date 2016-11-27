@@ -6,34 +6,51 @@ function init(){
 
 	var hash;
 
+	if (window.location.hash == "#post-charity-results") {
+		smoothScroll('#results');
+	} else {
+		console.log(window.location.hash)
+	}
+
 	for (var i = 0; i < links.length; i++){
 		links[i].addEventListener('click', function(ev){
 			//checks if anchor is on current page and hash value is present
 			if ((ev.target.pathname === window.location.pathname)&&(ev.target.hash != "")){ 
+
 				//stops default behaviour
 				ev.preventDefault();
 
 				//store hash
 				hash = ev.target.hash;
-				console.log(hash)
 
-				$('html, body').animate({
-			        scrollTop: $(hash).offset().top
-			      	}, 800, function(){
-					//adds hash to browser location
-						window.location.hash = hash;
-					});
+				smoothScroll(hash);
+
 			}; //end else/if
 		}); //end event listener
 	}; //end loop over links
+
+	//Make selected
+	// .goal-type
+	// button .category
+	// .charity .header
+
+
+
 }; //end init
 
-var tif = document.querySelector('#tif');
-var motif = document.querySelector('#motif');
+function smoothScroll(hash){
 
-motif.addEventListener('mouseover', flip);
-motif.addEventListener('mouseleave', flip);
-motif.addEventListener('click', flip);
+	$('html, body').animate({
+    scrollTop: $(hash).offset().top
+  	}, 800, function(){
+	//adds hash to browser location
+		window.location.hash = hash;
+	});
+}; // end smooth scroll
+
+var tif = document.querySelector('#tif');
+
+setInterval(flip, 5000);
 var active = false;
 
 function flip(){

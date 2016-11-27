@@ -3,31 +3,59 @@ body {
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-start;
-	background-image: url('../_images/running/running6.jpg');
+	background: url('../_images/blackBack.jpg');
+	background-color: #000;
 	background-size: cover;
 	background-repeat: no-repeat;
+	background-attachment: fixed;
+	color: #fff;
 	}
-
-#content {
-	background-color: white;
-	background-color: rgba(255,255,255,0.8);
-	display: flex;
-	flex-direction: column;
-	width: 90%;
-	max-width: 1100px;
-	min-width: 500px;
+a {
+	text-decoration: none;
+	color: #448f94;
 }
 
-.banner {
+a:hover {
+	color: #D14039;
+}
+
+#content {
+	background: none;
+	/*background-color: rgba(255,255,255,0.8);*/
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1500px;
+	min-width: 500px;
+}
+#nav {
+	width: 100%;
+	background-color: #000;
+	justify-content: flex-end;
+}
+#nav a{
+	margin: 1.5em 1em;
+	color: #fff;
+	text-decoration: none;
+	letter-spacing: 0.75pt;
+}
+#nav a:hover{
+	color: #448f94;
+}
+
+.main-row > div {
+	margin: 10pt;
+	height: 50vh;
+	max-height: 600px;
+	border-radius: 0.2em;
+	/*box-shadow: 5px 5px 10px #000;*/
 }
 
 .banner h1 {
 	margin: 2em 0 0 3em;
 }
 
-nav {
+/*nav {
 	display: flex;
 	align-items: flex-end;
 	margin-right: 3em;
@@ -59,15 +87,81 @@ nav:hover ul{
 
 nav .hamburger {
 	font-size: 24pt;
+}*/
+#greeting {
+	width: 60%;
+	justify-content: space-between;
+	box-shadow: none;
+}
+#greeting h1{
+	font-size: 4em;
+	margin: 0.5em;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#greeting .charity{
+	align-items: center;
+}
+
+#greeting .charity h1{
+	margin-right: 0.1em;
+	-webkit-text-stroke: 1pt #fff;
+	-webkit-text-fill-color: #000;
+}
+
+#goal-progress{
+	width: 40%;
+	align-items: center;
+	justify-content: center;
+	background-color: #262521;
+	background-color: rgba(38,37,33,0.6);
+	position: relative;
+}
+
+#goal-progress .overlay{
+	position: absolute;
+	z-index: 10;
+	font-size: 2em;
+	color: #448f94;
+	-webkit-text-stroke: 1pt #448f94;
+	-webkit-text-fill-color: rgb(0,0,0);
+	-webkit-text-fill-color: rgba(0,0,0,0);
 }
 
 #pie_chart {
-	width: 70%; 
+	width: 100%; 
 	height: 500px;
+}
+
+#goal-timeseries{
+	width: 65%;
+	align-items: center;
+	background-color: #262521;
+	background-color: rgba(38,37,33,0.8);
 }
 
 #curve_chart {
 	width: 100%; 
-	height: 400px;
+	min-height: 400px;
 }
 
+#share-progress{
+	width:35%;
+	background-color: #262521;
+	background-color: rgba(38,37,33,0.6);
+	align-items: center;
+	justify-content: center;
+}
+
+#other-post a{
+	background-color: #bbb;
+	border-color: #bbb;
+}
+
+.footer {
+	width: 25%;
+	min-height:200px;
+	max-height: 400px;
+	background-color: #262521;
+	background-color: rgba(38,37,33,0.7);
+}

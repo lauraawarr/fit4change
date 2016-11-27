@@ -1,3 +1,10 @@
+console.log(user_data);
+window.addEventListener('load', function(){
+
+function upperFirst(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 var fitbitAccessToken;
 
     if (!window.location.hash) {
@@ -27,8 +34,9 @@ var fitbitAccessToken;
         }
     }
 
-    var processSteps = function(timeSeries) {
-        return timeSeries['activities-steps'].map(
+    var process = function(timeSeries) {
+        var str = 'activities-' + user_data['goal'];
+        return timeSeries[str].map(
             function(measurement){
                 //divides date string into day, month, year
                 var date = measurement.dateTime.split('-').map(
@@ -45,22 +53,28 @@ var fitbitAccessToken;
     } // end processSteps
 
 
-    var graphSteps = function(timeSeries) {
+    var graph = function(timeSeries) {
         
         stepData = new google.visualization.DataTable;
         stepData.addColumn('string', 'Date');
-        stepData.addColumn('number', 'Steps');
+        stepData.addColumn('number', upperFirst(user_data['goal']));
 
         stepData.addRows(timeSeries);
         
         console.log(timeSeries.map(function(x){return x[1]} ));
 
         var options = {
-          title: 'Steps this Week',
+          title: upperFirst(user_data['goal']) + ' this Week',
           //curveType: 'function',
           legend: 'none',
+          title: null,
           colors: ['#D14039' ],
-          backgroundColor: {fill: 'transparent'}
+          backgroundColor: {fill: 'transparent'},
+          crosshair: {color: '#fff'},
+          hAxis: {baselineColor: '#fff', textColor: '#fff'},
+          vAxis: {baselineColor: '#fff', textColor: '#fff'},
+          lineWidth: 7,
+          chartArea: {left: 80, right: 40, top: 40, bottom: 80}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -73,20 +87,44 @@ var fitbitAccessToken;
     var graphGoal = function(timeSeries) {
         var currentTotal = 0;
         timeSeries.map( function(x){return currentTotal += x[1]});
-        var goal = 70000;
+        var goal;
+        if (user_data['goalTime'] == 'week'){
+            goal = user_data['goalNum'];
+        } else if (user_data['goalTime'] == 'day'){
+            goal = 7 * user_data['goalNum'];
+        };
+
+        //displays post option is user has reached goal
+        console.log(currentTotal/goal);
+        if (parseInt(currentTotal)/parseInt(goal) >= 1){
+            document.querySelector('#share-post').style.display = 'block';
+            document.querySelector('#other-post').style.display = 'none';
+        } else {
+            document.querySelector('#other-post').style.display = 'block';
+            document.querySelector('#share-post').style.display = 'none';
+        };
         
+        //calculates percentage of goal remaining
+        var toGo = (goal-currentTotal < 0) ? 0 : goal-currentTotal;
         var goalData = google.visualization.arrayToDataTable([ 
             ['Progress','Percent'],
-            ['Steps Completed', currentTotal],
-            ['Steps To Go', goal]
+            [upperFirst(user_data['goal']) + ' Completed', currentTotal],
+            [upperFirst(user_data['goal']) + ' To Go', toGo]
             ]);
         
         var options = {
           //title: 'Goal Progress',
           legend: 'none',
+          pieSliceText: 'none',
           colors: ['#2B605B' ,'#6BB2AA' ],
-          backgroundColor: {fill: 'transparent'}
+          backgroundColor: {fill: 'transparent', stroke: 'transparent'},
+          pieHole: 0.7,
+          pieSliceBorderColor: 'transparent',
+          chartArea: {left: 20, right: 20, top: 20, bottom: 20}
         };
+
+        //prints new progress percentage in donut chart center
+        document.querySelector('#goal-progress > .overlay >h2').innerHTML = Math.ceil(100*(goal-toGo)/goal) + '%';
 
         var pie_chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
 
@@ -94,10 +132,10 @@ var fitbitAccessToken;
     }
 
 //had issue with external libraries loading after js file initially
-//solved by adding event listener 
-window.addEventListener('load', function(){
+//solved by adding event listener
+var fitbitJSON = 'https://api.fitbit.com/1/user/-/activities/'+ user_data['goal'] +'/date/2016-08-22/1w.json';
     fetch(
-        'https://api.fitbit.com/1/user/-/activities/steps/date/2016-08-22/1w.json',
+        fitbitJSON,
         {
             headers: new Headers({
                 'Authorization': 'Bearer ' + fitbitAccessToken
@@ -106,13 +144,13 @@ window.addEventListener('load', function(){
             method: 'GET'
         }
     ).then(processResponse)
-    .then(processSteps)
-    .then(graphSteps)
+    .then(process)
+    .then(graph)
     .then(graphGoal)
     .catch(function(error) {
         console.log(error);
     });
-}); //end onload
+});//end onload
 
 // var post = document.querySelector('#post-status');
 // var code = window.btoa('U2uUKf13tkXvyfhL1VXSew8ee: 2q80sqSFP2ldWD9vqataZLihmR7oiwpvxrwvr51IFM6Z7bFDXm')

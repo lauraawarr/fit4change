@@ -1,37 +1,41 @@
 <?php session_start(); ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Tech Design Project</title>
-	<link rel='stylesheet' href='_css/main.css' />
-	<link rel='stylesheet' href='_ccs/index.css' />
-	<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
-</head>
-<body>
+<?php
 
-	<div id="on-board">
-		<div class="banner">
-			<nav>
-				<a href="#" class="hamburger">&#9776;</a>
-				<ul>
-					<li><a href="#">Sync Device</a></li>
-					<li><a href="#">Settings</a></li>
-					<li><a href="logout.php">Logout</a></li>
-				</ul>
-			</nav>
+$db = new PDO('mysql:host=localhost;dbname=data;charset=utf8','root','root');
+//set error mode, which allows errors to be thrown, rather than silently ignored
+$db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-			<div id="form">
-			<h1>Hello<?php 
-				if(isset($_SESSION['name'])){
-					echo ", ".$_SESSION['name'];
-				} 
-			?>!</h1>
-			</div>
-		</div>
-		<content>
+$twitter = $_SESSION['twitter'];
+$name = $_SESSION['name'];
+$password = $_SESSION['password'];
+$goal = $_SESSION['goal'];
+$goalNum = $_SESSION['goalNum'];
+$goalTime = $_SESSION['goalTime'];
+$charity = $_SESSION['charity'];
 
-		</content>
-	</div>
+echo 'here1';
 
-</body>
-</html>
+try{ 
+	$sql = "INSERT INTO users (twitter, name, password, goal, goalNum, goalTime, charity)
+	VALUES (:twitter, :name, :password, :goal, :goalNum, :goalTime, :charity)";
+	$query = $db -> prepare( $sql );
+	$query -> execute( array(':twitter' => $twitter, ':name' => $name, ':password' => $password, ':goal' => $goal, ':goalNum' => $goalNum, ':goalTime' => $goalTime, ':charity' => $charity));	
+	$db -> query($sql);
+	$_SESSION['valid'] = true;
+} catch(PDOException $ex){
+	echo "Error Occured: ";
+	echo $ex -> getMessage();
+};
+
+echo 'here2';
+
+$db = null;
+session_destroy();
+exit(0);
+?>
+
+<!-- redirects to auth page -->
+<!-- To only autenticate if user is not most recent user, include if statement -->
+<meta http-equiv="refresh" content="0; URL='https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=227WP9&prompt=login&redirect_uri=http%3A%2F%2Flocalhost%3A8888%2FTechDesign%2Fmotif%2Fhome.php&scope=activity%20heartrate%20profile%20sleep&expires_in=604800'" />
+

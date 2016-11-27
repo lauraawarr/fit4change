@@ -46,3 +46,22 @@ body {
 	border-radius: 0.5em;
 	letter-spacing: 2px;
 }
+
+#signup .proceed-button {
+	font-size: 16pt;
+	padding: 0.75em;
+	border-radius: 0.2em;
+}
+
+#form input[type='submit'] {
+	background: none;
+	border: none;
+	color: #D14039;
+	margin-top: 0;
+	float: right;
+}
+
+#form input[type='submit']:hover {
+	color: #448f94;;
+	/*border: 2pt solid #D14039;*/
+}

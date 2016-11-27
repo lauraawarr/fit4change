@@ -17,8 +17,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content:space-between;
-	align-items: center;
-	
+	align-items: center;	
 }
 
 .ease {
@@ -61,7 +60,7 @@ body {
 }
 
 #landing nav a:hover{
-	color: rgba(256,256,256,0.7);
+	color: #448f94;
 }
 
 #main-section{
@@ -157,14 +156,25 @@ nav a {
 	font-size: 8pt;
 }
 
+input{
+	cursor: pointer; 
+	cursor: hand;
+}
+
 input[type=submit]{
-	color: white;
+	font-size: 12pt;
 	background-color: #D14039;
+	color: #000;
+	border: 2pt solid #D14039;
 	padding:8px 15px; 
-    border:0 none;
     cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px; 
+    -webkit-border-radius: 0.25em;
+    border-radius: 0.25em; 
+}
+input[type=submit]:hover{
+	background: none;
+	color: #D14039;
+	border: 2pt solid #D14039;
 }
 
 input[type=text]{
@@ -183,7 +193,19 @@ input[type=password]{
     border-radius: 2px; 
 }
 
-submit {
+.proceed-button {
+	background-color: #D14039;
+	color: #000;
+	border: 2pt solid #D14039;
+}
+
+.proceed-button:hover {
+	background: none;
+	color: #D14039;
+	border: 2pt solid #D14039;
+}
+
+.submit, submit {
   	display: flex;
   	justify-content: flex-end;
 }
@@ -535,4 +557,4 @@ flip
 		transform: scaleX(1);
 	}
 }*/
-
+/*#448f94;*/

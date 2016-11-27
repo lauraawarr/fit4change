@@ -3,7 +3,9 @@
 	flex-direction: row;
 	justify-content: space-between;
 	color: white;
-	height: 500px;
+	min-height: 550px;
+	max-height: 570px;
+	flex-grow: 1;
 }
 
 content {
@@ -13,7 +15,7 @@ content {
 
 a {
 	text-decoration: none;
-	color: white;
+	color: #000;
 }
 
 .column img{
@@ -23,10 +25,11 @@ a {
 
 h3 {
 	padding-left: 5px;
+	color: #fff;
 }
 
 nav a {
-	color: white;
+	color: #fff;
 }
 
 
@@ -34,10 +37,46 @@ content {
 	margin-left: 60px;
 }
 
+content p {
+	font-size: 11pt;
+}
+
 foo {
 	margin-left: 60px;
 }
 
+.goal-type {
+	/*cursor: pointer;*/
+	border: 2pt solid #448f94;
+	border-color: rgba(63,143,148, 0.6);
+	background: none;
+	border-radius: 0.25em;
+	margin-bottom: 0.5em;
+	margin-right: 1em;
+}
+.goal-type:hover {
+	/*cursor: pointer;*/
+	background-color:#448f94;
+	background-color: rgba(63,143,148, 0.6);
+}
+.goal-type:selected {
+	/*cursor: pointer;*/
+	background-color:#448f94;
+	background-color: rgba(63,143,148, 0.6);
+}
+
+.goal-option{
+	padding-bottom: 0.75em;
+	align-items: center;
+}
+
+.goal-option *{
+	margin-right: 1em;
+}
+
+.error{
+	margin-bottom: 5em;
+}
 
 .selector > input{
 	display: none;
@@ -58,8 +97,13 @@ foo {
 }
 
 input[type=submit]{
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 	margin-right: 20px;
 	height: 40px;
 	width: 100px;
 }
+
+/*input[type=text]{
+	background-color: #000;
+	color: #fff;
+}*/

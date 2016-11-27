@@ -16,12 +16,12 @@
 
 	/** POST fields required by the URL above. **/
 	$postfields = array(
-	    'status' => ' Congratulations '.$_SESSION['name'].", you did it!  ".'@'.$_SESSION['twitter']
+	    'status' => " Congratulations ".$_SESSION['name'].", you did it! Support ".$_SESSION['name']."'s cause by donating to www.canadahelps.org/en/charities/".$user_data['hash']." @".$_SESSION['twitter']." #project_motif"
 	);
 
 	/** Perform the request and echo the response **/
 	$twitter = new TwitterAPIExchange($settings);
-	echo $twitter->buildOauth($url, $requestMethod)
+		 $twitter->buildOauth($url, $requestMethod)
 	             ->setPostfields($postfields)
 	             ->performRequest();
 
