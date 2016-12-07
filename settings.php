@@ -24,6 +24,23 @@
 </form>
 <?php
 
+	// $goalTime = $goalErr =  "";
+	// $valid = false;
+
+	// if (isset($_SESSION['goal'])) {
+	// 	$goal = $_SESSION['goal'];
+	// } else {
+	// 	$goal = "steps";
+	// };
+
+	// if (isset($_SESSION['numName'])) {
+	// 	$numName = $_SESSION['numName'];
+	// 	$goalNum = $_SESSION['goalNum'];
+	// } else {
+	// 	$numName = "";
+	// 	$goalNum = "";
+	// };
+
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 		//determines if goal(steps, minutes, or distance) and goalTime (week or day) are set

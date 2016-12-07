@@ -29,6 +29,13 @@ function init(){
 		}); //end event listener
 	}; //end loop over links
 
+	//Make selected
+	// .goal-type
+	// button .category
+	// .charity .header
+
+
+
 }; //end init
 
 function smoothScroll(hash){
