@@ -3,10 +3,10 @@
 	
 		// Set access tokens
 		$settings = array(
-		    'oauth_access_token' => "797939352307462145-pSmoxjYzMWFGVQZ4UVl9URArT2HPDh5",
-		    'oauth_access_token_secret' => "jItDv8xMrKV73YgFI0ZrXzgdIHNIrBSLfG24tOST1XAIm",
-		    'consumer_key' => "U2uUKf13tkXvyfhL1VXSew8ee",
-		    'consumer_secret' => "2q80sqSFP2ldWD9vqataZLihmR7oiwpvxrwvr51IFM6Z7bFDXm"
+		    'oauth_access_token' => "< yourAccessToken >",
+		    'oauth_access_token_secret' => "< yourAccessTokenSecret >",
+		    'consumer_key' => "< yourConsumerKey >",
+		    'consumer_secret' => "< yourConsumerSecret >"
 		);
 	
 		/** URL for REST request **/
