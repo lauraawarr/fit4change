@@ -141,42 +141,6 @@ console.log(fitness_data);
         pie_chart.draw(goalData, options);
     }; //end graphGoal
 
-    //had issue with external libraries loading after js file initially
-    //solved by adding event listener
-    // var fitbitJSON = 'https://api.fitbit.com/1/user/-/activities/'+ user_data['goal'] +'/date/2016-08-22/1w.json';
-    //     fetch(
-    //         fitbitJSON,
-    //         {
-    //             headers: new Headers({
-    //                 'Authorization': 'Bearer ' + fitbitAccessToken
-    //             }),
-    //             mode: 'cors',
-    //             method: 'GET'
-    //         }
-    //     ).then(processResponse)
-    //     .then(process)
-    //     .then(graph)
-    //     .then(graphGoal)
-    //     .catch(function(error) {
-    //         console.log(error);
-    //     });
-    // });//end onload
-
-    // var post = document.querySelector('#post-status');
-    // var code = window.btoa('U2uUKf13tkXvyfhL1VXSew8ee: 2q80sqSFP2ldWD9vqataZLihmR7oiwpvxrwvr51IFM6Z7bFDXm')
-    // post.addEventListener('click', function(){
-    //     fetch(
-    //         'https://api.twitter.com/1.1/statuses/update.json?status=Testing',
-    //         {
-    //             headers: new Headers({
-    //                 'Authorization': 'Bearer' + code,
-    //                 'Access-Control-Allow-Origin': 'http://localhost:8888', 
-    //                 'Access-Control-Allow-Credentials': true,
-    //                 //'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8.'
-    //             }),
-    //             mode: 'no-cors',
-    //             method: 'POST'
-    //         })
 
     var settings = document.querySelector('#settings');
     var settingsBar = document.querySelector('#settings-bar');
@@ -196,7 +160,7 @@ console.log(fitness_data);
 
     //revokes access token on user logout
     var logoutLink = document.querySelector('#logout');
-    var code = window.btoa('227WP9:0f947f3eed699edb1fa68a2c6d45a036'); //Bae64 encode string
+    var code = window.btoa('< clientID >: < Bae64 encoded clientSecret> '); //Bae64 encode string
 
     logoutLink.addEventListener('click', function(){
         fetch(

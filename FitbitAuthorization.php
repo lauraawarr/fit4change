@@ -5,9 +5,9 @@
 
 
     $provider = new Fitbit([
-    'clientId'          => '227WP9',
-    'clientSecret'      => '0f947f3eed699edb1fa68a2c6d45a036',
-    'redirectUri'       => 'https://laurawarr.ca/motif/home.php'
+    'clientId'          => '< yourClientID >',
+    'clientSecret'      => '< yourClientSecret >',
+    'redirectUri'       => '< yourRedirectUri >'
     ]);
 
     if(!isset($_SESSION['accessToken'])){

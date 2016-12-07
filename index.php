@@ -10,7 +10,7 @@
 
 	// Create connection
 	// specifies db type, host, db name, char set, username and password
-	$db = new PDO('mysql:host=localhost;dbname=warrla_motif;charset=utf8','warrla','cjp!123!law');
+	$db = new PDO('mysql:host=localhost;dbname=< databaseName >;charset=utf8','< username >','< password >');
 	//set error mode, which allows errors to be thrown, rather than silently ignored
 	$db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 	$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
