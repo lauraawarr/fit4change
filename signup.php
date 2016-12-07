@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 	// Create connection
 	// specifies db type, host, db name, char set, username and password
-	$db = new PDO('mysql:host=localhost;dbname=data;charset=utf8','root','root');
+	$db = new PDO('mysql:host=localhost;dbname=warrla_motif;charset=utf8','warrla','cjp!123!law');
 	//set error mode, which allows errors to be thrown, rather than silently ignored
 	$db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 	$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	} else {
 		$twitter = test_input($_POST["twitter"]);
 		// check if Twitter handle syntax is valid 
-    	if (!preg_match("/^[a-zA-Z]*$/", $twitter)) {
+    	if (!preg_match("/^@?(\w){1,15}$/", $twitter)) { //^@?(\w){1,15}$   ///^[a-zA-Z]*$/
 	      $twitterErr = "Invalid Twitter handle"; 
 	    }
 	}
@@ -102,6 +102,7 @@ function capFirst($word){
 	<link rel='stylesheet' href='_css/main.css' />
 	<link rel='stylesheet' href='_css/signup.css' />
 	<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+	<link rel="icon" href="_images/motif.ico"/>
 </head>
 <body>
 <!-- 
@@ -133,9 +134,9 @@ function capFirst($word){
 			</div>
 		</div>
 		<img class='ease down' src="_images/easeDown.svg">
-	</div>
+	</div><!-- 
 
-	<?php include('about.html') ?>
+	<?php include('about.html') ?> -->
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

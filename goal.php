@@ -26,6 +26,11 @@
 			//sets the SESSION variables to be the POST variables
 			$goalTime = $_SESSION['goalTime'] = $_POST['goalTime'];
 			$goal = $_SESSION['goal'] = $_POST['goal'];
+			if($goal == 'distance'){
+				$_SESSION['goalUnits'] = 'kilometers';
+			} else {
+				$_SESSION['goalUnits'] = $goal;
+			};
 
 			//concats $goal and $goalTime to form $goalNum name (ie. steps-week, distance-day)
 			$numName = $_SESSION['numName'] = $goal."-".$goalTime;
@@ -58,6 +63,7 @@
 	<link rel='stylesheet' href='_css/main.css' />
 	<link rel='stylesheet' href='_css/goal.css' />
 	<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+	<link rel="icon" href="_images/motif.ico"/>
 </head>
 <body>
 
@@ -74,7 +80,7 @@
 
 			<content>
 				<h2>What is your goal today?</h2>
-				<p>Set your goal on a weekly basis or what you'd like to average per day.</p>
+				<p>Set your goal on a weekly basis or as a daily average.</p>
 				<span class='error'><?php echo $goalErr; ?></span>
 				<div class="column">
 				<form action = 'goal.php#section-two' method='POST'>
@@ -129,7 +135,7 @@
 					</div>
 					<br/><br/>
 					<submit>
-						<input type='submit' value='NEXT'/>
+						<input class='proceed-button' type='submit' value='NEXT'/>
 					</submit>
 				</form>
 				</div>
@@ -138,9 +144,9 @@
 		</div>
 	<img class='ease down' src="_images/easeDown.svg">
 	</div>
-
-	<?php include('about.html') ?>
-
+<!-- 
+	<?php //include('about.html') ?>
+ -->
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="_scripts/smoothScroll.js"></script>

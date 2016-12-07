@@ -2,7 +2,7 @@
 <?php
 	//create a PDO (PHP Data Object)
 	//specifies db type, host, db name, char set, username and password
-	$db = new PDO('mysql:host=localhost;dbname=data;charset=utf8','root','root');
+	$db = new PDO('mysql:host=localhost;dbname=warrla_motif;charset=utf8','warrla','cjp!123!law');
 	//set error mode, which allows errors to be thrown, rather than silently ignored
 	$db -> setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 	$db -> setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -18,14 +18,15 @@
 			$name = $_SESSION['name'];
 			$password = $_SESSION['password'];
 			$goal = $_SESSION['goal'];
+			$goalUnits = $_SESSION['goalUnits'];
 			$goalNum = $_SESSION['goalNum'];
 			$goalTime = $_SESSION['goalTime'];
 
 			try{ 
-				$sql = "INSERT INTO users (twitter, name, password, goal, goalNum, goalTime, charity)
-				VALUES (:twitter, :name, :password, :goal, :goalNum, :goalTime, :charity)";
+				$sql = "INSERT INTO users (twitter, name, password, goal, goalUnits, goalNum, goalTime, charity)
+				VALUES (:twitter, :name, :password, :goal, :goalUnits, :goalNum, :goalTime, :charity)";
 				$query = $db -> prepare( $sql );
-				$query -> execute( array(':twitter' => $twitter, ':name' => $name, ':password' => $password, ':goal' => $goal, ':goalNum' => $goalNum, ':goalTime' => $goalTime, ':charity' => $charity));	
+				$query -> execute( array(':twitter' => $twitter, ':name' => $name, ':password' => $password, ':goal' => $goal, ':goalUnits' => $goalUnits, ':goalNum' => $goalNum, ':goalTime' => $goalTime, ':charity' => $charity));	
 				$valid = true;
 			} catch(PDOException $ex){
 				echo "Error Occured: ";
@@ -34,7 +35,7 @@
 
 			if ($valid){
 				$db = null;
-				header('Location: index.html');
+				header('Location: redirect.html');
 			};
 		}; //end isset charity
 	}; //end if POST
@@ -59,6 +60,7 @@
 	<link rel='stylesheet' href='_css/main.css' />
 	<link rel='stylesheet' href='_css/charity.css' />
 	<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+	<link rel="icon" href="_images/motif.ico"/>
 </head>
 <body>
 	<!-- 
@@ -197,9 +199,9 @@
 		</div>
 	<img class='ease down' src="_images/easeDown.svg">
 	</div>
-
-	<?php include('about.html') ?>
-
+<!-- 
+	<?php //include('about.html') ?>
+ -->
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="_scripts/main.js"></script>

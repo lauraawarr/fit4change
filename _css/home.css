@@ -3,6 +3,7 @@ body {
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-start;
+	font-family: 'Montserrat', sans-serif;
 	background: url('../_images/blackBack.jpg');
 	background-color: #000;
 	background-size: cover;
@@ -25,14 +26,103 @@ a:hover {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	max-width: 1500px;
+	max-width: 1500px; 
 	min-width: 500px;
 }
-#nav {
+
+#settings-bar {
+	position: absolute;
+	display: block;
+	background: #050505;
 	width: 100%;
-	background-color: #000;
+	height: 15.2em;
+	top: -15em;
+}
+
+.settings-visible {
+	-moz-transform: translate3d(0px, 15em, 0px);
+	-webkit-transform: translate3d(0px, 15em, 0px);
+	-o-transform: translate(0px, 15em);
+	-ms-transform: translate(0px, 15em);
+	transform: translate3d(0px, 15em, 0px);
+}
+
+.smooth-trans{
+	-moz-transition: all 600ms ease-out;
+ 	-webkit-transition: all 600ms ease-out;
+ 	-o-transition: all 600ms ease-out;
+ 	transition: all 600ms ease-out;
+}
+
+#close-settings{
+	width: 100%;
+	height: 2em;
 	justify-content: flex-end;
 }
+
+#close-settings img{
+	width: 2em;
+}
+
+#settings-form {
+	width: 60%;
+	margin: auto 25%;
+}
+
+#settings-form .row{
+	align-items: center;
+	justify-content: center;
+}
+
+#settings-form .title{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 12em;
+}
+
+#settings-form div{
+	margin: auto 1vw;
+}
+
+#settings-form form select{
+	width: 18vw;
+	height: 3em;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+
+#settings-form form input[type=text]{
+	width: 16vw;
+	height: 3em;
+	padding: 0;
+	padding-left: 2vw;
+}
+
+#settings-submit input[type=submit]{
+	margin: 1em 0;
+	padding: auto 1em;
+	width: 100%;
+}
+
+#nav {
+	position: fixed;
+	z-index: 100;
+	width: 100%;
+	max-width: 1500px;
+	height: 21em;
+	overflow: hidden;
+ 	transition: height 1200ms ease-out;
+ 	margin-right: 1em;
+}
+
+#nav-bar {
+	background: url('../_images/easeUp.svg');
+	background-size: cover;
+	height: 6em;
+	justify-content: flex-end;
+}
+
 #nav a{
 	margin: 1.5em 1em;
 	color: #fff;
@@ -50,82 +140,57 @@ a:hover {
 	border-radius: 0.2em;
 	/*box-shadow: 5px 5px 10px #000;*/
 }
-
-.banner h1 {
-	margin: 2em 0 0 3em;
+#banner{
+	margin-top: 4em;
 }
 
-/*nav {
-	display: flex;
-	align-items: flex-end;
-	margin-right: 3em;
-}
-
-nav li{
-	list-style: none;
-	padding: 0.5em 0.5em 0.5em 0 ;
-}
-
-nav ul{
-	max-height: 0px;
-	overflow: hidden;
-	-webkit-transition: max-height 0.75s ease-out;
-	-ms-transition: max-height 0.75s ease-out;
-    transition: max-height 0.75s ease-out;
-    background-color: #d3d3d3;
-    position: absolute;
-    margin-top: 5em; 
-}
-
-nav:hover ul{
-	max-height: 200px;
-	display: block;
-	-webkit-transition: max-height 0.75s ease-out;
-	-ms-transition: max-height 0.75s ease-out;
-    transition: max-height 0.75s ease-out;
-}
-
-nav .hamburger {
-	font-size: 24pt;
-}*/
 #greeting {
-	width: 60%;
+	width: 54vw;
+	margin: auto 1vw;
 	justify-content: space-between;
 	box-shadow: none;
 }
 #greeting h1{
 	font-size: 4em;
 	margin: 0.5em;
-	font-family: 'Montserrat', sans-serif;
-}
-
-#greeting .charity{
-	align-items: center;
-}
-
-#greeting .charity h1{
-	margin-right: 0.1em;
-	-webkit-text-stroke: 1pt #fff;
-	-webkit-text-fill-color: #000;
 }
 
 #goal-progress{
-	width: 40%;
+	width: 38vw;
+	height: 38vw;
+	margin: auto 3vw;
 	align-items: center;
 	justify-content: center;
 	background-color: #262521;
 	background-color: rgba(38,37,33,0.6);
+	border-radius: 100%;
 	position: relative;
+	padding: auto 25px;
 }
 
-#goal-progress .overlay{
+#goal-progress .overlay {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 	position: absolute;
+	text-align: center;
 	z-index: 10;
-	font-size: 2em;
+	font-size: 4vw;/*4em;*/
 	color: #448f94;
+}
+#goal-progress .overlay h2{
 	-webkit-text-stroke: 1pt #448f94;
 	-webkit-text-fill-color: rgb(0,0,0);
 	-webkit-text-fill-color: rgba(0,0,0,0);
+	margin: 0 auto;
+
+}
+
+#goal-progress .overlay p{
+	font-size: 12pt;
+	width: 40%;	
+	color: #448f94;
 }
 
 #pie_chart {
@@ -133,35 +198,160 @@ nav .hamburger {
 	height: 500px;
 }
 
+#greeting .charity{
+	width: 40vw;
+	align-items: center;
+	justify-content: flex-start;
+	margin-left: 2em;
+	/*border: 2pt solid #fff;*/
+}
+
+#greeting .charity h1{
+	font-size: 6vw;
+	margin: 0 0.1em;
+	-webkit-text-stroke: 1pt #fff;
+	-webkit-text-fill-color: #000;
+}
+
 #goal-timeseries{
-	width: 65%;
+	width: 100%;
+	height: 55vh;
 	align-items: center;
 	background-color: #262521;
 	background-color: rgba(38,37,33,0.8);
 }
 
 #curve_chart {
-	width: 100%; 
+	width: 100%;
+	height: 100%; 
 	min-height: 400px;
 }
 
-#share-progress{
-	width:35%;
-	background-color: #262521;
-	background-color: rgba(38,37,33,0.6);
+.share-button{
+	width: 20vw;
+	height: 20vw;
+	text-align: center;
+	font-size: 14pt;
+}
+
+#share-post {
+	display: none;
 	align-items: center;
 	justify-content: center;
 }
 
-#other-post a{
+#share-post a {
+	display: flex;
+	background: none;
+	color: #2b605b;
+	border: 2pt solid #2b605b;
+	align-items: center;
+	justify-content: center;
+	border-radius: 100em;
+}
+
+#share-post a:hover {
+	background-color: #2b605b;
+	color: #000;
+}
+
+#other-post {
+	align-items: center;
+	justify-content: center;
+	color: #bbb;
+	padding: 0;
+}
+
+#other-post p {
+	color: #bbb;	
+}
+
+#other-post a {
 	background-color: #bbb;
-	border-color: #bbb;
+	background-color: rgba(58,58,58,0.2);
+	border: 2pt solid #3a3a3a;
+	color: #3a3a3a;
+	padding: 1em;
+}
+
+.subheader {
+	/*background-color: #262521;
+	background-color: rgba(38,37,33,0.4);*/
+	border: 2pt solid #fff;
+	/*border-radius: 0.2em;*/
+	border-right: 0;
+	border-left: 0;
+	margin: 10pt 2em;
+	display: flex;
+	align-items: center;
+	padding-left: 2em;
 }
 
 .footer {
-	width: 25%;
-	min-height:200px;
-	max-height: 400px;
+	width: 23vw;
+	height: 23vw;
+	max-height: 345px;
 	background-color: #262521;
 	background-color: rgba(38,37,33,0.7);
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	margin: 10pt 1vw;
+	border-radius: 100%;
+}
+
+.overlay {
+	position: absolute;
+}
+
+.chart {
+	width: 90%;
+	height: 90%;
+}
+
+@media screen and (min-width: 1500px){
+
+	#settings-form {
+		width: 900px;
+	}
+
+	#settings-form form select{
+		width: 270px;
+	}
+
+	#settings-form form input[type=text]{
+		width: 240px;
+	}
+
+	#greeting {
+	width: 810px;
+	margin: auto 15px;
+	}
+
+	#goal-progress{
+		width: 570px;
+		height: 570px;
+		margin: auto 3vw;
+	}
+
+	.share-button{
+		width: 300px;
+		height: 300px;
+	}
+
+	.footer {
+	width: 345px;
+	height: 345px;
+	margin: 10pt 15px;
+	}
+
+	#goal-progress .overlay {
+		font-size: 60px;
+	}
+
+	#greeting .charity h1{
+		font-size: 60px;
+	}
+
 }

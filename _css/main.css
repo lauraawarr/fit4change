@@ -163,18 +163,18 @@ input{
 
 input[type=submit]{
 	font-size: 12pt;
-	background-color: #D14039;
+	/*background-color: #D14039;
 	color: #000;
-	border: 2pt solid #D14039;
+	border: 2pt solid #D14039;*/
 	padding:8px 15px; 
     cursor:pointer;
     -webkit-border-radius: 0.25em;
     border-radius: 0.25em; 
 }
 input[type=submit]:hover{
-	background: none;
+	/*background: none;
 	color: #D14039;
-	border: 2pt solid #D14039;
+	borde*/r: 2pt solid #D14039;
 }
 
 input[type=text]{
@@ -194,14 +194,14 @@ input[type=password]{
 }
 
 .proceed-button {
-	background-color: #D14039;
-	color: #000;
+	background: none;
+	color: #D14039;
 	border: 2pt solid #D14039;
 }
 
 .proceed-button:hover {
-	background: none;
-	color: #D14039;
+	background-color: #D14039;
+	color: #000;
 	border: 2pt solid #D14039;
 }
 
@@ -249,12 +249,23 @@ input[type=password]{
 	align-items: center;
 	justify-content: center;
 	margin: 0;
+	margin-top: 2em;
 }
 
 #footer h1, p{
 	color: #ffffff;
-	max-width: 50em;
+	width: 80%;
+	max-width: 40em;
 	text-align: center;
+}
+
+#footer hr{
+	height: 0.5pt;
+	border: none;
+	margin-top: 3em;
+	width: 35%;
+	max-width: 400px;
+	background-color: #fff;
 }
 
 #news-feed{

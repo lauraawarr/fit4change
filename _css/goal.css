@@ -55,7 +55,7 @@ foo {
 	margin-right: 1em;
 }
 .goal-type:hover {
-	/*cursor: pointer;*/
+	cursor: pointer;
 	background-color:#448f94;
 	background-color: rgba(63,143,148, 0.6);
 }

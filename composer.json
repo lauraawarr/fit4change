@@ -1,0 +1,6 @@
+{
+    "require": {
+        "league/oauth2-client": "^1.4",
+        "djchen/oauth2-fitbit": "^0.3.1"
+    }
+}
